@@ -143,8 +143,8 @@
 
     <!-- JavaScript Admin Logic with Firebase Integration -->
     <script>
-        // Firebase Realtime Database URL (Thay đổi URL Firebase của bạn vào đây)
-        const FIREBASE_DB_URL = 'YOUR_FIREBASE_DB_URL'; // Ví dụ: 'https://bipbip-s-default-rtdb.firebaseio.com'
+        // Firebase Realtime Database URL
+        const FIREBASE_DB_URL = 'https://la-flower-default-rtdb.asia-southeast1.firebasedatabase.app';
 
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
@@ -196,7 +196,7 @@
             let messages = [];
 
             try {
-                if (FIREBASE_DB_URL !== 'YOUR_FIREBASE_DB_URL' && FIREBASE_DB_URL) {
+                if (FIREBASE_DB_URL) {
                     const response = await fetch(`${FIREBASE_DB_URL}/messages.json`);
                     const data = await response.json();
                     if (data) {
@@ -262,7 +262,7 @@
             if (!confirm('Bạn có chắc chắn muốn xóa tin nhắn này không?')) return;
 
             try {
-                if (FIREBASE_DB_URL !== 'YOUR_FIREBASE_DB_URL' && FIREBASE_DB_URL) {
+                if (FIREBASE_DB_URL) {
                     await fetch(`${FIREBASE_DB_URL}/messages/${id}.json`, {
                         method: 'DELETE'
                     });
@@ -283,7 +283,7 @@
             if (!confirm('Bạn có chắc chắn muốn xóa TOÀN BỘ danh sách tin nhắn không?')) return;
 
             try {
-                if (FIREBASE_DB_URL !== 'YOUR_FIREBASE_DB_URL' && FIREBASE_DB_URL) {
+                if (FIREBASE_DB_URL) {
                     await fetch(`${FIREBASE_DB_URL}/messages.json`, {
                         method: 'DELETE'
                     });

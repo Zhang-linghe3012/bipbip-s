@@ -1166,7 +1166,7 @@
         }
 
         // Firebase Realtime Database Configuration
-        const FIREBASE_DB_URL = 'YOUR_FIREBASE_DB_URL'; // Thay URL Firebase của bạn vào đây (Ví dụ: https://xxx-default-rtdb.firebaseio.com)
+        const FIREBASE_DB_URL = 'https://la-flower-default-rtdb.asia-southeast1.firebasedatabase.app';
 
         function saveMessageToFirebase(msg) {
             // Backup to localStorage
@@ -1174,7 +1174,7 @@
             existingMessages.unshift(msg);
             localStorage.setItem('la_flower_messages', JSON.stringify(existingMessages));
 
-            if (FIREBASE_DB_URL === 'YOUR_FIREBASE_DB_URL' || !FIREBASE_DB_URL) return;
+            if (!FIREBASE_DB_URL) return;
 
             fetch(`${FIREBASE_DB_URL}/messages.json`, {
                 method: 'POST',
