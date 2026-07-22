@@ -387,7 +387,10 @@
 
             <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
                 <p>© 2026 Lá Flower Artisan. Tất cả quyền được bảo lưu.</p>
-                <div class="flex gap-6 mt-4 sm:mt-0">
+                <div class="flex items-center gap-6 mt-4 sm:mt-0">
+                    <a href="admin.html" class="text-rose-400 hover:text-rose-300 font-semibold transition flex items-center gap-1">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Quản trị
+                    </a>
                     <a href="#" class="hover:text-gray-300 transition">Chính sách bảo mật</a>
                     <a href="#" class="hover:text-gray-300 transition">Điều khoản dịch vụ</a>
                     <a href="#" class="hover:text-gray-300 transition">Chính sách đổi trả</a>
@@ -1164,7 +1167,26 @@
 
         function submitConsultation(e) {
             e.preventDefault();
+            const form = e.target;
+            const name = form.querySelector('input[type="text"]').value;
+            const phone = form.querySelector('input[type="tel"]').value;
+            const content = form.querySelector('textarea').value;
+            
+            const messageData = {
+                id: 'MSG' + Date.now(),
+                name: name,
+                phone: phone,
+                content: content,
+                type: 'Form Tư Vấn',
+                time: new Date().toLocaleString('vi-VN')
+            };
+
+            const existingMessages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
+            existingMessages.unshift(messageData);
+            localStorage.setItem('la_flower_messages', JSON.stringify(existingMessages));
+
             closeConsultationModal();
+            form.reset();
             showToast('Yêu cầu tư vấn của bạn đã được gửi thành công! Chuyên viên sẽ gọi lại sau ít phút.');
         }
 
@@ -1186,6 +1208,19 @@
             const input = document.getElementById('chat-input');
             const message = input.value.trim();
             if (!message) return;
+
+            const messageData = {
+                id: 'MSG' + Date.now(),
+                name: 'Khách hàng Live Chat',
+                phone: 'Chưa cung cấp (Chat trực tiếp)',
+                content: message,
+                type: 'Live Chat',
+                time: new Date().toLocaleString('vi-VN')
+            };
+
+            const existingMessages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
+            existingMessages.unshift(messageData);
+            localStorage.setItem('la_flower_messages', JSON.stringify(existingMessages));
 
             const container = document.getElementById('chat-messages');
             
