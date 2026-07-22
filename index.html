@@ -1165,6 +1165,26 @@
             document.getElementById('consultation-modal').classList.add('hidden');
         }
 
+        // Telegram Bot Configuration
+        const TELEGRAM_BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'; // Thay token bot của bạn vào đây
+        const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';         // Thay chat ID của bạn vào đây
+
+        function sendTelegramNotification(msg) {
+            if (TELEGRAM_BOT_TOKEN === 'YOUR_TELEGRAM_BOT_TOKEN' || !TELEGRAM_BOT_TOKEN) return;
+
+            const text = `🌸 BÁO CÓ KHÁCH TƯ VẤN MỚI\n` +
+                         `• Họ tên: ${msg.name}\n` +
+                         `• Số điện thoại: ${msg.phone}\n` +
+                         `• Nội dung: ${msg.content}\n` +
+                         `• Thời gian: ${msg.time}`;
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text })
+            }).catch(err => console.error('Telegram Error:', err));
+        }
+
         function submitConsultation(e) {
             e.preventDefault();
             const form = e.target;
@@ -1184,6 +1204,9 @@
             const existingMessages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
             existingMessages.unshift(messageData);
             localStorage.setItem('la_flower_messages', JSON.stringify(existingMessages));
+
+            // Send Telegram Notification
+            sendTelegramNotification(messageData);
 
             closeConsultationModal();
             form.reset();
@@ -1221,6 +1244,9 @@
             const existingMessages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
             existingMessages.unshift(messageData);
             localStorage.setItem('la_flower_messages', JSON.stringify(existingMessages));
+
+            // Send Telegram Notification
+            sendTelegramNotification(messageData);
 
             const container = document.getElementById('chat-messages');
             
