@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lá Flower - Tiệm Hoa Tươi Thiết Kế Chuyên Nghiệp</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            pink: '#FFF1F2',
+                            pinkLight: '#FFF5F7',
+                            pinkDark: '#E11D48',
+                            green: '#F0FDF4',
+                            greenLight: '#DCFCE7',
+                            greenDark: '#166534',
+                            sage: '#84A98C',
+                            cream: '#FCFBF9',
+                            rose: '#F43F5E'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF1F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F43F5E;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-[#FCFBF9] text-gray-800 antialiased selection:bg-rose-100 selection:text-rose-700">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-rose-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium">
+        ✨ Miễn phí vận chuyển đơn hàng từ 500.000đ trong nội thành • Giao hoa nhanh trong 2 giờ! Hotline/Zalo: <a href="https://zalo.me/0901234567" class="underline font-bold">0901.234.567</a>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-rose-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-rose-50 transition">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 group-hover:scale-110 transition duration-300">
+                    <i data-lucide="flower-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="font-serif text-2xl font-bold tracking-tight text-gray-900 block leading-tight">Lá Flower</span>
+                    <span class="text-[10px] uppercase tracking-widest text-rose-600 font-semibold block">Artisan Florist</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-8 font-medium text-sm text-gray-700">
+                <a href="#home" class="text-rose-600 font-semibold hover:text-rose-600 transition">Trang Chủ</a>
+                <a href="#categories" class="hover:text-rose-600 transition">Danh Mục</a>
+                <a href="#products" class="hover:text-rose-600 transition">Bộ Sưu Tập</a>
+                <a href="#about" class="hover:text-rose-600 transition">Về Chúng Tôi</a>
+                <a href="#contact" class="hover:text-rose-600 transition">Liên Hệ</a>
+            </nav>
+
+            <!-- Actions (Search, Cart) -->
+            <div class="flex items-center gap-3">
+                <!-- Search Toggle -->
+                <div class="relative hidden sm:block">
+                    <input type="text" id="search-input" placeholder="Tìm kiếm hoa tươi..." class="w-48 lg:w-64 pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:border-rose-500 focus:bg-white transition">
+                    <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3.5 top-3"></i>
+                </div>
+
+                <!-- Cart Button -->
+                <button id="cart-btn" class="relative p-2.5 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-100 transition flex items-center justify-center">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar (Visible on small screens) -->
+        <div class="sm:hidden px-4 pb-3">
+            <div class="relative">
+                <input type="text" id="mobile-search-input" placeholder="Tìm kiếm hoa tươi..." class="w-full pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:border-rose-500">
+                <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3.5 top-3"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden lg:hidden transition-opacity">
+        <div class="absolute left-0 top-0 bottom-0 w-80 bg-white p-6 shadow-2xl flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-gray-100">
+                    <div class="flex items-center gap-2">
+                        <div class="w-9 h-9 rounded-full bg-rose-100 flex items-center justify-center text-rose-600">
+                            <i data-lucide="flower-2" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-gray-900">Lá Flower</span>
+                    </div>
+                    <button id="mobile-menu-close" class="p-2 text-gray-500 hover:text-gray-900">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <nav class="flex flex-col gap-4 mt-6 font-medium text-gray-700">
+                    <a href="#home" class="mobile-nav-link p-2 rounded-lg hover:bg-rose-50 hover:text-rose-600 transition">Trang Chủ</a>
+                    <a href="#categories" class="mobile-nav-link p-2 rounded-lg hover:bg-rose-50 hover:text-rose-600 transition">Danh Mục Sản Phẩm</a>
+                    <a href="#products" class="mobile-nav-link p-2 rounded-lg hover:bg-rose-50 hover:text-rose-600 transition">Bộ Sưu Tập Hoa Tươi</a>
+                    <a href="#about" class="mobile-nav-link p-2 rounded-lg hover:bg-rose-50 hover:text-rose-600 transition">Về Lá Flower</a>
+                    <a href="#contact" class="mobile-nav-link p-2 rounded-lg hover:bg-rose-50 hover:text-rose-600 transition">Liên Hệ & Cửa Hàng</a>
+                </nav>
+            </div>
+            <div class="pt-6 border-t border-gray-100 text-xs text-gray-500 text-center">
+                <p>Hotline: 0901.234.567</p>
+                <p class="mt-1">© 2026 Lá Flower Artisan</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden bg-gradient-to-b from-rose-50/60 to-white py-12 lg:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-100 text-rose-700 text-xs font-bold uppercase tracking-wider">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Hoa tươi thiết kế thủ công mỗi ngày
+                    </div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                        Gửi Trao Yêu Thương <br>
+                        <span class="text-rose-600 italic">Đong Đầy Hạnh Phúc</span>
+                    </h1>
+                    <p class="text-gray-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+                        Mỗi bó hoa tại Lá Flower là một tác phẩm nghệ thuật được chăm chút tỉ mỉ từ những bông hoa tươi nhập khẩu chọn lọc, thay bạn nhắn gửi những tâm tình chân thành nhất.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#products" class="w-full sm:w-auto px-8 py-4 bg-rose-600 text-white font-semibold rounded-full shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition duration-300 text-center flex items-center justify-center gap-2">
+                            <span>Khám Phá Bộ Sưu Tập</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="https://zalo.me/0901234567" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-white text-gray-800 border border-gray-200 font-semibold rounded-full hover:bg-gray-50 transition duration-300 text-center flex items-center justify-center gap-2">
+                            <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
+                            <span>Tư Vấn Thiết Kế Riêng</span>
+                        </a>
+                    </div>
+                    <!-- Features highlights -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-gray-200/60 text-center lg:text-left">
+                        <div>
+                            <p class="font-bold text-xl text-gray-900 font-serif">100%</p>
+                            <p class="text-xs text-gray-500 mt-0.5">Hoa tươi mới mỗi ngày</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-xl text-gray-900 font-serif">2 Giờ</p>
+                            <p class="text-xs text-gray-500 mt-0.5">Giao nhanh nội thành</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-xl text-gray-900 font-serif">Tặng kèm</p>
+                            <p class="text-xs text-gray-500 mt-0.5">Thiệp thiết kế riêng</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hero Image Grid -->
+                <div class="relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <div class="absolute -top-4 -left-4 w-72 h-72 bg-rose-200/50 rounded-full filter blur-3xl -z-10"></div>
+                        <div class="absolute -bottom-4 -right-4 w-72 h-72 bg-emerald-200/50 rounded-full filter blur-3xl -z-10"></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=600&q=80" alt="Bó hoa hồng pastel" class="rounded-2xl shadow-xl w-full h-64 sm:h-80 object-cover transform hover:scale-[1.02] transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=600&q=80" alt="Hoa cưới lãng mạn" class="rounded-2xl shadow-xl w-full h-64 sm:h-80 object-cover mt-8 transform hover:scale-[1.02] transition duration-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-rose-600 font-semibold text-sm uppercase tracking-widest">Danh Mục Nổi Bật</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Chọn Hoa Theo Dịp Kỷ Niệm</h2>
+                <div class="w-16 h-1 bg-rose-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Category 1 -->
+                <button onclick="filterCategory('sinh-nhat')" class="category-card group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 text-left h-64 block">
+                    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=500&q=80" alt="Hoa Sinh Nhật" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+                        <span class="text-xs font-semibold text-rose-300 uppercase tracking-wider">Phổ Biến</span>
+                        <h3 class="font-serif text-xl font-bold mt-1">Hoa Sinh Nhật</h3>
+                        <p class="text-xs text-gray-200 mt-1 opacity-90">Tươi vui, rực rỡ sắc màu</p>
+                    </div>
+                </button>
+                <!-- Category 2 -->
+                <button onclick="filterCategory('hoa-cuoi')" class="category-card group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 text-left h-64 block">
+                    <img src="https://images.unsplash.com/photo-1519225449526-24151778c14e?auto=format&fit=crop&w=500&q=80" alt="Hoa Cưới" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+                        <span class="text-xs font-semibold text-rose-300 uppercase tracking-wider">Lãng Mạn</span>
+                        <h3 class="font-serif text-xl font-bold mt-1">Hoa Cưới</h3>
+                        <p class="text-xs text-gray-200 mt-1 opacity-90">Trang trọng, tinh khôi</p>
+                    </div>
+                </button>
+                <!-- Category 3 -->
+                <button onclick="filterCategory('khai-truong')" class="category-card group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 text-left h-64 block">
+                    <img src="https://images.unsplash.com/photo-1533616685519-7104b2b8c9d2?auto=format&fit=crop&w=500&q=80" alt="Hoa Khai Trương" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+                        <span class="text-xs font-semibold text-rose-300 uppercase tracking-wider">Thịnh Vượng</span>
+                        <h3 class="font-serif text-xl font-bold mt-1">Hoa Khai Trương</h3>
+                        <p class="text-xs text-gray-200 mt-1 opacity-90">Phát tài, phát lộc</p>
+                    </div>
+                </button>
+                <!-- Category 4 -->
+                <button onclick="filterCategory('theo-yeu-cau')" class="category-card group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 text-left h-64 block">
+                    <img src="https://images.unsplash.com/photo-1508746814830-a37e968f9a2f?auto=format&fit=crop&w=500&q=80" alt="Bó Hoa Theo Yêu Cầu" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+                        <span class="text-xs font-semibold text-rose-300 uppercase tracking-wider">Thiết Kế Riêng</span>
+                        <h3 class="font-serif text-xl font-bold mt-1">Bó Hoa Theo Yêu Cầu</h3>
+                        <p class="text-xs text-gray-200 mt-1 opacity-90">Sáng tạo theo phong cách bạn</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Listing Section -->
+    <section id="products" class="py-16 bg-[#FCFBF9]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                <div>
+                    <span class="text-rose-600 font-semibold text-sm uppercase tracking-widest">Bộ Sưu Tập Hoa Tươi</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Sản Phẩm Đang Thịnh Hành</h2>
+                </div>
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 bg-white p-1.5 rounded-full border border-gray-200 shadow-sm">
+                    <button onclick="filterCategory('all')" id="tab-all" class="category-tab px-4 py-2 rounded-full text-sm font-semibold bg-rose-600 text-white transition">Tất Cả</button>
+                    <button onclick="filterCategory('sinh-nhat')" id="tab-sinh-nhat" class="category-tab px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:text-rose-600 transition">Sinh Nhật</button>
+                    <button onclick="filterCategory('hoa-cuoi')" id="tab-hoa-cuoi" class="category-tab px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:text-rose-600 transition">Hoa Cưới</button>
+                    <button onclick="filterCategory('khai-truong')" id="tab-khai-truong" class="category-tab px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:text-rose-600 transition">Khai Trương</button>
+                    <button onclick="filterCategory('theo-yeu-cau')" id="tab-theo-yeu-cau" class="category-tab px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:text-rose-600 transition">Thiết Kế Riêng</button>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Products will be injected dynamically via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-16 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-rose-600 font-semibold text-sm uppercase tracking-widest">Cam Kết Chất Lượng</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 mt-2">Tại Sao Nên Chọn Lá Flower?</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-rose-50/50 p-8 rounded-3xl text-center hover:bg-rose-50 transition duration-300">
+                    <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                        <i data-lucide="flower" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-gray-900 mb-2">100% Hoa Tươi Nhập Khẩu</h3>
+                    <p class="text-gray-600 text-sm">Tuyển chọn kỹ lưỡng từ các nông trại hoa uy tín Đà Lạt và Ecuador, giữ độ tươi lâu trên 5 ngày.</p>
+                </div>
+                <div class="bg-emerald-50/50 p-8 rounded-3xl text-center hover:bg-emerald-50 transition duration-300">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                        <i data-lucide="truck" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-gray-900 mb-2">Giao Hỏa Tốc 2 Giờ</h3>
+                    <p class="text-gray-600 text-sm">Đội ngũ vận chuyển chuyên nghiệp đảm bảo hoa nguyên vẹn, không dập nát khi đến tay người nhận.</p>
+                </div>
+                <div class="bg-amber-50/50 p-8 rounded-3xl text-center hover:bg-amber-50 transition duration-300">
+                    <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                        <i data-lucide="gift" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-gray-900 mb-2">Tặng Thiệp & Túi Cao Cấp</h3>
+                    <p class="text-gray-600 text-sm">Miễn phí in thiệp thiết kế riêng theo nội dung bạn yêu cầu kèm túi đựng sang trọng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-gray-300 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-800">
+                <!-- Col 1 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center text-white">
+                            <i data-lucide="flower-2" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-serif text-2xl font-bold text-white tracking-tight">Lá Flower</span>
+                    </div>
+                    <p class="text-sm text-gray-400">
+                        Tiệm hoa tươi thiết kế nghệ thuật mang đến cảm xúc trọn vẹn trong từng khoảnh khắc quan trọng của cuộc sống.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="https://zalo.me/0901234567" target="_blank" class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center hover:bg-emerald-700 transition" title="Zalo">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition" title="Facebook">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-pink-600 text-white flex items-center justify-center hover:bg-pink-700 transition" title="Instagram">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h3 class="font-serif text-lg font-bold text-white mb-4">Danh Mục Hoa</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#products" onclick="filterCategory('sinh-nhat')" class="hover:text-rose-400 transition">Hoa Sinh Nhật</a></li>
+                        <li><a href="#products" onclick="filterCategory('hoa-cuoi')" class="hover:text-rose-400 transition">Hoa Cưới Cầm Tay</a></li>
+                        <li><a href="#products" onclick="filterCategory('khai-truong')" class="hover:text-rose-400 transition">Kệ Hoa Khai Trương</a></li>
+                        <li><a href="#products" onclick="filterCategory('theo-yeu-cau')" class="hover:text-rose-400 transition">Bó Hoa Thiết Kế Riêng</a></li>
+                        <li><a href="#products" class="hover:text-rose-400 transition">Hộp Hoa Sang Trọng</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h3 class="font-serif text-lg font-bold text-white mb-4">Liên Hệ Cửa Hàng</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-rose-500 shrink-0 mt-0.5"></i>
+                            <span>123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-rose-500 shrink-0"></i>
+                            <a href="tel:0901234567" class="hover:text-white transition">0901.234.567 (Zalo/Hotline)</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-rose-500 shrink-0"></i>
+                            <a href="mailto:contact@laflower.vn" class="hover:text-white transition">contact@laflower.vn</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="clock" class="w-5 h-5 text-rose-500 shrink-0"></i>
+                            <span>Thứ Hai - Chủ Nhật: 8:00 - 21:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h3 class="font-serif text-lg font-bold text-white mb-4">Bản Đồ Chỉ Đường</h3>
+                    <div class="rounded-xl overflow-hidden h-40 bg-gray-800 border border-gray-700 relative flex items-center justify-center text-center p-4">
+                        <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=400&q=80')"></div>
+                        <div class="relative z-10">
+                            <i data-lucide="map" class="w-8 h-8 text-rose-500 mx-auto mb-2"></i>
+                            <p class="text-xs text-white font-medium">123 Nguyễn Huệ, Quận 1, TP.HCM</p>
+                            <a href="https://maps.google.com" target="_blank" class="mt-2 inline-block px-3 py-1 bg-rose-600 text-white text-xs font-semibold rounded-full hover:bg-rose-700 transition">Xem trên Google Maps</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
+                <p>© 2026 Lá Flower Artisan. Tất cả quyền được bảo lưu.</p>
+                <div class="flex gap-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-gray-300 transition">Chính sách bảo mật</a>
+                    <a href="#" class="hover:text-gray-300 transition">Điều khoản dịch vụ</a>
+                    <a href="#" class="hover:text-gray-300 transition">Chính sách đổi trả</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer Modal -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden transition-opacity flex justify-end">
+        <div id="cart-content" class="w-full max-w-md bg-white h-full shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300">
+            <!-- Cart Header -->
+            <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-rose-600"></i>
+                    <h3 class="font-serif text-xl font-bold text-gray-900">Giỏ Hàng Của Bạn</h3>
+                </div>
+                <button id="close-cart-btn" class="p-2 text-gray-400 hover:text-gray-700 rounded-full hover:bg-gray-100 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Free Shipping Progress -->
+            <div class="bg-rose-50 px-6 py-3 border-b border-rose-100">
+                <div class="flex justify-between text-xs font-medium text-rose-800 mb-1.5">
+                    <span id="shipping-progress-text">Thêm 500.000đ để nhận Miễn Phí Vận Chuyển</span>
+                    <span id="shipping-progress-percent">0%</span>
+                </div>
+                <div class="w-full bg-rose-200 h-2 rounded-full overflow-hidden">
+                    <div id="shipping-bar" class="bg-rose-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Cart Items List -->
+            <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-gray-100">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Cart Footer -->
+            <div class="p-6 border-t border-gray-100 bg-gray-50 space-y-4">
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between text-gray-600">
+                        <span>Tạm tính:</span>
+                        <span id="cart-subtotal" class="font-semibold text-gray-900">0 ₫</span>
+                    </div>
+                    <div class="flex justify-between text-gray-600">
+                        <span>Phí vận chuyển:</span>
+                        <span id="cart-shipping" class="font-semibold text-emerald-600">Miễn phí</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold text-gray-900 pt-2 border-t border-gray-200">
+                        <span>Tổng cộng:</span>
+                        <span id="cart-total" class="text-rose-600 text-lg">0 ₫</span>
+                    </div>
+                </div>
+                <button onclick="openCheckout()" id="checkout-btn" class="w-full py-3.5 bg-rose-600 text-white font-semibold rounded-xl shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition flex items-center justify-center gap-2 disabled:opacity-55 disabled:cursor-not-allowed">
+                    <span>Tiến Hành Đặt Hàng</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 p-2 bg-white/80 backdrop-blur-md rounded-full text-gray-600 hover:text-gray-900 hover:bg-white transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="modal-content" class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl relative my-8">
+            <div class="p-6 bg-rose-600 text-white flex items-center justify-between">
+                <div>
+                    <h3 class="font-serif text-xl font-bold">Thanh Toán Đơn Hàng</h3>
+                    <p class="text-xs text-rose-100 mt-0.5">Vui lòng điền đầy đủ thông tin giao nhận hoa</p>
+                </div>
+                <button onclick="closeCheckout()" class="p-2 text-white/80 hover:text-white rounded-full transition">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <form id="checkout-form" onsubmit="submitOrder(event)" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="user" class="w-4 h-4 text-rose-600"></i> Thông tin người nhận
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Họ tên người nhận *</label>
+                            <input type="text" required placeholder="Nguyễn Văn A" class="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-rose-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1">Số điện thoại *</label>
+                            <input type="tel" required placeholder="0901234567" class="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-rose-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Địa chỉ giao hoa chi tiết (Số nhà, tên đường, phường/quận) *</label>
+                        <input type="text" required placeholder="Ví dụ: 123 Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM" class="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-rose-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Lời nhắn trên thiệp (Tặng kèm miễn phí)</label>
+                        <textarea rows="2" placeholder="Ví dụ: Chúc mừng sinh nhật chị yêu! Chúc chị luôn xinh đẹp và hạnh phúc." class="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-rose-500"></textarea>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 space-y-3">
+                    <h4 class="font-bold text-sm text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="credit-card" class="w-4 h-4 text-rose-600"></i> Phương thức thanh toán
+                    </h4>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-3 p-3.5 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" name="payment" value="cod" checked class="text-rose-600 focus:ring-rose-500">
+                            <div>
+                                <span class="font-semibold text-sm text-gray-900 block">Thanh toán khi nhận hàng (COD)</span>
+                                <span class="text-xs text-gray-500">Thanh toán bằng tiền mặt khi nhận hoa</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3.5 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" name="payment" value="vietqr" class="text-rose-600 focus:ring-rose-500">
+                            <div>
+                                <span class="font-semibold text-sm text-gray-900 block">Chuyển khoản VietQR (Nhanh chóng & Tiện lợi)</span>
+                                <span class="text-xs text-gray-500">Quét mã QR qua ứng dụng Ngân hàng</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- VietQR Display Box (Hidden by default) -->
+                <div id="vietqr-box" class="hidden bg-rose-50/70 border border-rose-200 p-4 rounded-2xl text-center space-y-3">
+                    <p class="text-xs font-semibold text-rose-800">Quét mã QR để chuyển khoản thanh toán đơn hàng</p>
+                    <div class="bg-white p-3 rounded-xl inline-block shadow-sm">
+                        <img id="qr-code-img" src="" alt="VietQR Code" class="w-48 h-48 mx-auto object-contain">
+                    </div>
+                    <div class="text-xs text-gray-600 space-y-1">
+                        <p>Ngân hàng: <strong class="text-gray-900">MB Bank (Quân Đội)</strong></p>
+                        <p>Số tài khoản: <strong class="text-gray-900">0901234567</strong></p>
+                        <p>Chủ tài khoản: <strong class="text-gray-900">CÔNG TY TNHH LA FLOWER</strong></p>
+                        <p>Nội dung CK: <strong id="qr-content-text" class="text-rose-600">LAFLOWER [SĐT]</strong></p>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-gray-500 block">Tổng thanh toán:</span>
+                        <span id="checkout-total-price" class="text-xl font-bold text-rose-600">0 ₫</span>
+                    </div>
+                    <button type="submit" class="px-8 py-3.5 bg-rose-600 text-white font-semibold rounded-xl shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition flex items-center gap-2">
+                        <span>Xác Nhận Đặt Hàng</span>
+                        <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Order Modal -->
+    <div id="success-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center space-y-6 shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                <i data-lucide="check" class="w-10 h-10"></i>
+            </div>
+            <div>
+                <h3 class="font-serif text-2xl font-bold text-gray-900">Đặt Hàng Thành Công!</h3>
+                <p class="text-sm text-gray-600 mt-2">Cảm ơn bạn đã đặt hoa tại Lá Flower. Đơn hàng của bạn đang được chuẩn bị và sẽ giao đến trong thời gian sớm nhất.</p>
+                <div class="mt-4 p-4 bg-gray-50 rounded-2xl text-xs text-gray-600 space-y-1">
+                    <p>Mã đơn hàng: <strong id="success-order-id" class="text-rose-600 font-mono">#LF8892</strong></p>
+                    <p>Thời gian giao dự kiến: <strong>Trong vòng 2 giờ</strong></p>
+                </div>
+            </div>
+            <button onclick="closeSuccessModal()" class="w-full py-3.5 bg-rose-600 text-white font-semibold rounded-xl shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition">
+                Tiếp Tục Mua Sắm
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-gray-900 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300">
+        <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+        </div>
+        <span id="toast-msg" class="text-sm font-medium">Sản phẩm đã được thêm vào giỏ hàng!</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Product Database with Unsplash High-Res Flower Images
+        const products = [
+            {
+                id: 1,
+                name: "Bó Hoa Hồng Pastel Ngọt Ngào",
+                category: "sinh-nhat",
+                categoryName: "Hoa Sinh Nhật",
+                price: 550000,
+                oldPrice: 680000,
+                image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=600&q=80",
+                badge: "Bán Chạy",
+                description: "Sự kết hợp hoàn hảo giữa hoa hồng pastel Ecuador, hoa baby trắng và lá khuynh diệp thơm ngát. Thích hợp tặng sinh nhật, kỷ niệm ngày yêu.",
+                flowers: ["Hoa hồng pastel nhập khẩu", "Hoa baby trắng", "Lá khuynh diệp"]
+            },
+            {
+                id: 2,
+                name: "Bó Hoa Cưới Cầm Tay Tinh Khôi",
+                category: "hoa-cuoi",
+                categoryName: "Hoa Cưới",
+                price: 850000,
+                oldPrice: 990000,
+                image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=600&q=80",
+                badge: "Độc Quyền",
+                description: "Thiết kế hoa cưới cầm tay cho cô dâu với hoa hồng trắng thuần khiết, cẩm chướng và hoa lan chuông thanh lịch, tạo điểm nhấn sang trọng trong ngày trọng đại.",
+                flowers: ["Hoa hồng trắng", "Cẩm chướng trắng", "Lan chuông", "Lá bạc"]
+            },
+            {
+                id: 3,
+                name: "Kệ Hoa Khai Trương Phát Tài",
+                category: "khai-truong",
+                categoryName: "Hoa Khai Trương",
+                price: 1350000,
+                oldPrice: 1550000,
+                image: "https://images.unsplash.com/photo-1533616685519-7104b2b8c9d2?auto=format&fit=crop&w=600&q=80",
+                badge: "Mới",
+                description: "Kệ hoa khai trương hoành tráng với tông màu đỏ và vàng chủ đạo, mang ý nghĩa tài lộc, may mắn và thịnh vượng cho doanh nghiệp mới khởi sự.",
+                flowers: ["Hoa hướng dương", "Hoa hồng đỏ", "Hoa đồng tiền", "Lá môn đốm"]
+            },
+            {
+                id: 4,
+                name: "Hộp Hoa Tulip Hà Lan Sang Trọng",
+                category: "theo-yeu-cau",
+                categoryName: "Thiết Kế Riêng",
+                price: 790000,
+                oldPrice: 920000,
+                image: "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=600&q=80",
+                badge: "Cao Cấp",
+                description: "Hộp hoa tulip Hà Lan nhập khẩu tươi thắm, biểu tượng của sự hoàn hảo và tình yêu sâu sắc. Được sắp xếp tỉ mỉ trong hộp quà cao cấp.",
+                flowers: ["Tulip Hà Lan hồng", "Hoa baby", "Hộp quà thiết kế"]
+            },
+            {
+                id: 5,
+                name: "Bó Hoa Hướng Dương Nắng Mai",
+                category: "sinh-nhat",
+                categoryName: "Hoa Sinh Nhật",
+                price: 480000,
+                oldPrice: 580000,
+                image: "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80",
+                badge: "Yêu Thích",
+                description: "Bó hoa hướng dương rực rỡ như ánh mặt trời, mang thông điệp về niềm tin, hy vọng và năng lượng tích cực gửi đến người nhận.",
+                flowers: ["Hoa hướng dương Đà Lạt", "Hoa cúc tana", "Lá phụ"]
+            },
+            {
+                id: 6,
+                name: "Bó Hoa Baby Rainbow Mộng Mơ",
+                category: "sinh-nhat",
+                categoryName: "Hoa Sinh Nhật",
+                price: 450000,
+                oldPrice: 520000,
+                image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80",
+                badge: "Hot",
+                description: "Những bông hoa baby được nhuộm màu pastel mộng mơ, tạo nên một đám mây hoa ngọt ngào làm siêu lòng bất kỳ cô gái nào.",
+                flowers: ["Hoa baby rainbow nhập khẩu", "Giấy gói Hàn Quốc"]
+            },
+            {
+                id: 7,
+                name: "Kệ Hoa Khai Trương Thịnh Vượng",
+                category: "khai-truong",
+                categoryName: "Hoa Khai Trương",
+                price: 1680000,
+                oldPrice: 1900000,
+                image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&w=600&q=80",
+                badge: "Hoành Tráng",
+                description: "Kệ hoa 2 tầng sang trọng kết hợp hoa lan hồ điệp vàng và hồng môn, khẳng định đẳng cấp và lời chúc thành công bền vững.",
+                flowers: ["Lan hồ điệp vàng", "Hồng môn đỏ", "Hoa hồng vàng", "Lá cọ"]
+            },
+            {
+                id: 8,
+                name: "Bó Hoa Hồng Đỏ Romantically Yours",
+                category: "theo-yeu-cau",
+                categoryName: "Thiết Kế Riêng",
+                price: 650000,
+                oldPrice: 780000,
+                image: "https://images.unsplash.com/photo-1548094878-84ced0f6896d?auto=format&fit=crop&w=600&q=80",
+                badge: "Lãng Mạn",
+                description: "Bó hoa hồng đỏ nhung Ecuador kinh điển dành cho những dịp tỏ tình, kỷ niệm ngày cưới hoặc ngày lễ Valentine đầy cảm xúc.",
+                flowers: ["Hoa hồng đỏ Ecuador", "Lá bạc", "Giấy gói cao cấp đen/đỏ"]
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+
+        // Format Currency
+        function formatVND(amount) {
+            return amount.toLocaleString('vi-VN') + ' ₫';
+        }
+
+        // Initialize Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderProducts(products);
+            setupEventListeners();
+        });
+
+        // Render Products Grid
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i data-lucide="search-x" class="w-12 h-12 text-gray-400 mx-auto mb-3"></i>
+                        <p class="text-gray-500 font-medium">Không tìm thấy sản phẩm phù hợp.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            grid.innerHTML = items.map(p => `
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 flex flex-col group">
+                    <div class="relative overflow-hidden aspect-square bg-gray-100 cursor-pointer" onclick="openProductModal(${p.id})">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        ${p.badge ? `<span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">${p.badge}</span>` : ''}
+                        <button onclick="event.stopPropagation(); openProductModal(${p.id})" class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md text-gray-800 p-2.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition duration-300 hover:bg-rose-600 hover:text-white">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-xs font-semibold text-rose-600 uppercase tracking-wider">${p.categoryName}</span>
+                            <h3 onclick="openProductModal(${p.id})" class="font-serif text-lg font-bold text-gray-900 mt-1 cursor-pointer hover:text-rose-600 transition line-clamp-1">${p.name}</h3>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-2">${p.description}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                            <div>
+                                <span class="text-base font-bold text-rose-600 block">${formatVND(p.price)}</span>
+                                ${p.oldPrice ? `<span class="text-xs text-gray-400 line-through">${formatVND(p.oldPrice)}</span>` : ''}
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="px-4 py-2.5 bg-rose-50 text-rose-600 font-semibold rounded-xl hover:bg-rose-600 hover:text-white transition flex items-center gap-1.5 shadow-sm">
+                                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                                <span class="text-xs">Thêm</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // Filter Products by Category
+        function filterCategory(category) {
+            currentFilter = category;
+            
+            // Update active tab styles
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('bg-rose-600', 'text-white', 'shadow-sm');
+                tab.classList.add('text-gray-600', 'hover:text-rose-600');
+            });
+
+            const activeTab = document.getElementById(`tab-${category}`) || document.getElementById('tab-all');
+            if (activeTab && activeTab.classList.contains('category-tab')) {
+                activeTab.classList.remove('text-gray-600', 'hover:text-rose-600');
+                activeTab.classList.add('bg-rose-600', 'text-white', 'shadow-sm');
+            }
+
+            if (category === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === category);
+                renderProducts(filtered);
+            }
+
+            // Scroll to products if triggered from category cards
+            if(category !== 'all') {
+                const section = document.getElementById('products');
+                if(section) section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Search functionality
+        function setupEventListeners() {
+            const searchInput = document.getElementById('search-input');
+            const mobileSearchInput = document.getElementById('mobile-search-input');
+
+            const handleSearch = (e) => {
+                const keyword = e.target.value.toLowerCase().trim();
+                const filtered = products.filter(p => 
+                    p.name.toLowerCase().includes(keyword) || 
+                    p.description.toLowerCase().includes(keyword) ||
+                    p.categoryName.toLowerCase().includes(keyword)
+                );
+                renderProducts(filtered);
+            };
+
+            if (searchInput) searchInput.addEventListener('input', handleSearch);
+            if (mobileSearchInput) mobileSearchInput.addEventListener('input', handleSearch);
+
+            // Cart Drawer Toggles
+            document.getElementById('cart-btn').addEventListener('click', toggleCart);
+            document.getElementById('close-cart-btn').addEventListener('click', toggleCart);
+            document.getElementById('cart-drawer').addEventListener('click', (e) => {
+                if (e.target.id === 'cart-drawer') toggleCart();
+            });
+
+            // Mobile Menu Toggles
+            document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+            document.getElementById('mobile-menu-close').addEventListener('click', toggleMobileMenu);
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+
+            // Payment method change handler
+            document.querySelectorAll('input[name="payment"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const qrBox = document.getElementById('vietqr-box');
+                    if (e.target.value === 'vietqr') {
+                        qrBox.classList.remove('hidden');
+                        generateQRCode();
+                    } else {
+                        qrBox.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const content = document.getElementById('cart-content');
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+                renderCartItems();
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('hidden'), 300);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Cart Management
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+            
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartBadge();
+            showToast(`Đã thêm "${product.name}" vào giỏ hàng!`);
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalCount;
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const totalEl = document.getElementById('cart-total');
+            const shippingEl = document.getElementById('cart-shipping');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const shippingBar = document.getElementById('shipping-bar');
+            const shippingText = document.getElementById('shipping-progress-text');
+            const shippingPercent = document.getElementById('shipping-progress-percent');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 text-gray-300 mx-auto mb-3"></i>
+                        <p class="text-gray-500 font-medium">Giỏ hàng của bạn đang trống</p>
+                        <a href="#products" onclick="toggleCart()" class="mt-4 inline-block px-6 py-2.5 bg-rose-600 text-white text-xs font-semibold rounded-xl hover:bg-rose-700 transition">Mua sắm ngay</a>
+                    </div>
+                `;
+                subtotalEl.textContent = '0 ₫';
+                totalEl.textContent = '0 ₫';
+                shippingEl.textContent = '0 ₫';
+                checkoutBtn.disabled = true;
+                shippingBar.style.width = '0%';
+                shippingText.textContent = 'Thêm 500.000đ để nhận Miễn Phí Vận Chuyển';
+                shippingPercent.textContent = '0%';
+                lucide.createIcons();
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+            container.innerHTML = cart.map(item => `
+                py-4 flex gap-4 items-center first:pt-0 last:pb-0">
+                    <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-xl border border-gray-100 shrink-0">
+                    <div class="flex-1">
+                        <h4 class="font-serif font-bold text-gray-900 text-sm line-clamp-1">${item.name}</h4>
+                        <span class="text-rose-600 font-bold text-sm mt-0.5 block">${formatVND(item.price)}</span>
+                        <div class="flex items-center gap-3 mt-2">
+                            <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-white">
+                                <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" class="px-2 py-1 text-gray-600 hover:bg-gray-100 transition">-</button>
+                                <span class="px-3 text-xs font-bold text-gray-900">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" class="px-2 py-1 text-gray-600 hover:bg-gray-100 transition">+</button>
+                            </div>
+                            <button onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-rose-600 transition p-1">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shippingFee = subtotal >= 500000 || subtotal === 0 ? 0 : 30000;
+            const total = subtotal + shippingFee;
+
+            subtotalEl.textContent = formatVND(subtotal);
+            shippingEl.textContent = shippingFee === 0 ? 'Miễn phí' : formatVND(shippingFee);
+            totalEl.textContent = formatVND(total);
+
+            // Free shipping progress calculation (target 500k)
+            const freeShipTarget = 500000;
+            const progress = Math.min(100, Math.round((subtotal / freeShipTarget) * 100));
+            shippingBar.style.width = `${progress}%`;
+            
+            if (subtotal >= freeShipTarget) {
+                shippingText.textContent = '🎉 Chúc mừng! Bạn đã được Miễn Phí Vận Chuyển';
+                shippingPercent.textContent = '100%';
+            } else {
+                const remaining = freeShipTarget - subtotal;
+                shippingText.textContent = `Thêm ${formatVND(remaining)} để nhận Miễn Phí Vận Chuyển`;
+                shippingPercent.textContent = `${progress}%`;
+            }
+
+            lucide.createIcons();
+        }
+
+        function updateQuantity(productId, newQty) {
+            if (newQty <= 0) {
+                removeFromCart(productId);
+                return;
+            }
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity = newQty;
+                renderCartItems();
+                updateCartBadge();
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            renderCartItems();
+            updateCartBadge();
+            showToast('Đã xóa sản phẩm khỏi giỏ hàng.');
+        }
+
+        // Product Detail Modal
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="relative aspect-square md:aspect-auto bg-gray-100">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                    ${product.badge ? `<span class="absolute top-4 left-4 bg-rose-600 text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-md">${product.badge}</span>` : ''}
+                </div>
+                <div class="p-6 md:p-8 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <span class="text-xs font-semibold text-rose-600 uppercase tracking-widest">${product.categoryName}</span>
+                        <h2 class="font-serif text-2xl md:text-3xl font-bold text-gray-900">${product.name}</h2>
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl font-bold text-rose-600">${formatVND(product.price)}</span>
+                            ${product.oldPrice ? `<span class="text-sm text-gray-400 line-through">${formatVND(product.oldPrice)}</span>` : ''}
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">${product.description}</p>
+                        
+                        <div class="space-y-2 pt-2 border-t border-gray-100">
+                            <h4 class="font-bold text-xs text-gray-900 uppercase tracking-wider">Thành phần hoa chính:</h4>
+                            <ul class="grid grid-cols-1 gap-1.5 text-xs text-gray-600">
+                                ${product.flowers.map(f => `<li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-rose-600"></i> ${f}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-4 border-t border-gray-100">
+                        <button onclick="addToCart(${product.id}); closeProductModal(); toggleCart();" class="w-full py-4 bg-rose-600 text-white font-semibold rounded-xl shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition flex items-center justify-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                            <span>Thêm Vào Giỏ Hàng Ngay</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('product-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // Checkout Modal & VietQR
+        function openCheckout() {
+            if (cart.length === 0) return;
+            toggleCart(); // Close cart drawer
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shippingFee = subtotal >= 500000 ? 0 : 30000;
+            const total = subtotal + shippingFee;
+
+            document.getElementById('checkout-total-price').textContent = formatVND(total);
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function generateQRCode() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shippingFee = subtotal >= 500000 ? 0 : 30000;
+            const total = subtotal + shippingFee;
+            const orderId = 'LF' + Math.floor(1000 + Math.random() * 9000);
+
+            // VietQR API format
+            const bankId = 'MB';
+            const accountNo = '0901234567';
+            const template = 'compact2';
+            const amount = total;
+            const description = `LAFLOWER ${orderId}`;
+
+            document.getElementById('qr-content-text').textContent = description;
+            const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-${template}.png?amount=${amount}&addInfo=${encodeURIComponent(description)}&accountName=${encodeURIComponent('CONG TY TNHH LA FLOWER')}`;
+            document.getElementById('qr-code-img').src = qrUrl;
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            closeCheckout();
+
+            const randomId = '#LF' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('success-order-id').textContent = randomId;
+            document.getElementById('success-modal').classList.remove('hidden');
+
+            // Reset cart
+            cart = [];
+            updateCartBadge();
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            msgEl.textContent = message;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
