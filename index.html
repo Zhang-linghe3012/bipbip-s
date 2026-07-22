@@ -1165,6 +1165,24 @@
             document.getElementById('consultation-modal').classList.add('hidden');
         }
 
+        // Firebase Realtime Database Configuration
+        const FIREBASE_DB_URL = 'YOUR_FIREBASE_DB_URL'; // Thay URL Firebase của bạn vào đây (Ví dụ: https://xxx-default-rtdb.firebaseio.com)
+
+        function saveMessageToFirebase(msg) {
+            // Backup to localStorage
+            const existingMessages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
+            existingMessages.unshift(msg);
+            localStorage.setItem('la_flower_messages', JSON.stringify(existingMessages));
+
+            if (FIREBASE_DB_URL === 'YOUR_FIREBASE_DB_URL' || !FIREBASE_DB_URL) return;
+
+            fetch(`${FIREBASE_DB_URL}/messages.json`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(msg)
+            }).catch(err => console.error('Firebase Error:', err));
+        }
+
         // Telegram Bot Configuration
         const TELEGRAM_BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'; // Thay token bot của bạn vào đây
         const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';         // Thay chat ID của bạn vào đây
@@ -1201,9 +1219,8 @@
                 time: new Date().toLocaleString('vi-VN')
             };
 
-            const existingMessages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
-            existingMessages.unshift(messageData);
-            localStorage.setItem('la_flower_messages', JSON.stringify(existingMessages));
+            // Save to Firebase & LocalStorage
+            saveMessageToFirebase(messageData);
 
             // Send Telegram Notification
             sendTelegramNotification(messageData);
@@ -1241,9 +1258,8 @@
                 time: new Date().toLocaleString('vi-VN')
             };
 
-            const existingMessages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
-            existingMessages.unshift(messageData);
-            localStorage.setItem('la_flower_messages', JSON.stringify(existingMessages));
+            // Save to Firebase & LocalStorage
+            saveMessageToFirebase(messageData);
 
             // Send Telegram Notification
             sendTelegramNotification(messageData);
