@@ -98,7 +98,7 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
                 <div>
                     <h1 class="font-serif text-2xl font-bold text-gray-900">Danh Sách Tin Nhắn & Yêu Cầu Tư Vấn</h1>
-                    <p class="text-xs text-gray-500 mt-1">Kết nối trực tuyến với Firebase Realtime Database • Cập nhật theo thời gian thực</p>
+                    <p class="text-xs text-gray-500 mt-1">Quản lý toàn bộ thông tin khách hàng từ Form Tư Vấn và Live Chat</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <button onclick="loadMessages()" class="px-4 py-2.5 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-xl text-sm font-semibold transition flex items-center gap-2">
@@ -141,9 +141,8 @@
         </div>
     </footer>
 
-    <!-- JavaScript Admin Logic with Firebase Integration -->
+    <!-- JavaScript Admin Logic -->
     <script>
-        // Firebase Realtime Database URL
         const FIREBASE_DB_URL = 'https://la-flower-default-rtdb.asia-southeast1.firebasedatabase.app';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -187,7 +186,7 @@
                 <tr>
                     <td colspan="6" class="p-12 text-center text-gray-400">
                         <i data-lucide="loader" class="w-8 h-8 mx-auto mb-3 animate-spin text-rose-500"></i>
-                        <p class="font-medium">Đang tải tin nhắn từ Firebase...</p>
+                        <p class="font-medium">Đang tải tin nhắn...</p>
                     </td>
                 </tr>
             `;
@@ -195,24 +194,31 @@
 
             let messages = [];
 
+            // Try fetching from Firebase, fallback to localStorage
             try {
                 if (FIREBASE_DB_URL) {
                     const response = await fetch(`${FIREBASE_DB_URL}/messages.json`);
-                    const data = await response.json();
-                    if (data) {
-                        messages = Object.keys(data).map(key => ({
-                            firebaseKey: key,
-                            ...data[key]
-                        })).sort((a, b) => new Date(b.time || 0) - new Date(a.time || 0));
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data) {
+                            messages = Object.keys(data).map(key => ({
+                                firebaseKey: key,
+                                ...data[key]
+                            }));
+                        }
                     }
-                } else {
-                    // Fallback to localStorage if Firebase URL is not configured yet
-                    messages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
                 }
             } catch (err) {
-                console.error('Firebase Load Error:', err);
+                console.log('Firebase fetch note: using localStorage fallback');
+            }
+
+            // If Firebase returned nothing, fallback to localStorage
+            if (messages.length === 0) {
                 messages = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
             }
+
+            // Sort newest first
+            messages.sort((a, b) => new Date(b.time || 0) - new Date(a.time || 0));
 
             if (messages.length === 0) {
                 tbody.innerHTML = `
@@ -234,14 +240,14 @@
 
                 return `
                     <tr class="hover:bg-rose-50/20 transition">
-                        <td class="p-4 sm:px-6 text-xs text-gray-500 whitespace-nowrap">${msg.time || 'N/A'}</td>
+                        <td class="p-4 sm:px-6 text-xs text-gray-500 whitespace-nowrap">${msg.time || new Date().toLocaleString('vi-VN')}</td>
                         <td class="p-4 sm:px-6">
                             <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${msg.type === 'Live Chat' ? 'bg-blue-100 text-blue-700' : 'bg-rose-100 text-rose-700'}">
                                 ${msg.type || 'Tư Vấn'}
                             </span>
                         </td>
                         <td class="p-4 sm:px-6 font-semibold text-gray-900">${msg.name || 'Khách hàng'}</td>
-                        <td class="p-4 sm:px-6 font-mono text-gray-700">${msg.phone || 'N/A'}</td>
+                        <td class="p-4 sm:px-6 font-mono text-gray-700">${msg.phone || 'Chưa cung cấp'}</td>
                         <td class="p-4 sm:px-6 max-w-xs truncate text-gray-600" title="${msg.content}">${msg.content || ''}</td>
                         <td class="p-4 sm:px-6 text-right whitespace-nowrap space-x-2">
                             <a href="${zaloUrl}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-2 bg-emerald-600 text-white font-semibold text-xs rounded-xl hover:bg-emerald-700 transition shadow-sm">
@@ -262,12 +268,11 @@
             if (!confirm('Bạn có chắc chắn muốn xóa tin nhắn này không?')) return;
 
             try {
-                if (FIREBASE_DB_URL) {
+                if (FIREBASE_DB_URL && !id.startsWith('MSG')) {
                     await fetch(`${FIREBASE_DB_URL}/messages/${id}.json`, {
                         method: 'DELETE'
                     });
                 }
-                // Also remove from localStorage if present
                 let localMsgs = JSON.parse(localStorage.getItem('la_flower_messages') || '[]');
                 localMsgs = localMsgs.filter(m => m.id !== id && m.firebaseKey !== id);
                 localStorage.setItem('la_flower_messages', JSON.stringify(localMsgs));
@@ -275,7 +280,7 @@
                 loadMessages();
             } catch (err) {
                 console.error('Delete Error:', err);
-                alert('Không thể xóa tin nhắn. Vui lòng thử lại.');
+                alert('Không thể xóa tin nhắn.');
             }
         }
 
